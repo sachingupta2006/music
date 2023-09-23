@@ -9,37 +9,15 @@ class HomeController extends GetxController {
     return source.firstWhere((element) => element.path == fromPath);
   }
 
-  AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
   final List<Audio> musicPath = [
-    Audio("assets/music/ai.mp3",
+    Audio("assets/music/ram.mp3",
         metas: Metas(
-            id: 'Pop',
-            title: 'Pop',
-            artist: 'Florent Champigny',
-            album: 'PopAlbum',
+            id: 'Pop id name',
+            title: 'Pop title',
+            artist: 'jubin artis name',
+            album: 'album name',
             image: const MetasImage.asset('assets/images/img.jpeg'))),
-    Audio("assets/music/code-chill.mp3",
-        metas: Metas(
-            id: 'Pop',
-            title: 'Pop',
-            artist: 'Florent Champigny',
-            album: 'PopAlbum',
-            image: const MetasImage.asset('assets/images/img.jpeg'))),
-    Audio("assets/music/coding-chillstep.mp3",
-        metas: Metas(
-            id: 'Pop',
-            title: 'Pop',
-            artist: 'Florent Champigny',
-            album: 'PopAlbum',
-            image: const MetasImage.asset('assets/images/img.jpeg'))),
-    Audio("assets/music/coding-night.mp3",
-        metas: Metas(
-            id: 'Pop',
-            title: 'Pop',
-            artist: 'Florent Champigny',
-            album: 'PopAlbum',
-            image: const MetasImage.asset('assets/images/img.jpeg'))),
-    Audio("assets/music/cyberpunk.mp3",
+    Audio("assets/music/krishna.mp3",
         metas: Metas(
             id: 'Pop',
             title: 'Pop',
