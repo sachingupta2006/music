@@ -11,7 +11,7 @@ class AppRoutes {
             transition: Transition.rightToLeft),
         GetPage(
             name: RoutesName.musicDetails,
-            page: () => const MusicDetails(),
+            page: () =>  const MusicDetails(index: 0),
             transition: Transition.rightToLeft)
       ];
 }
