@@ -1,28 +1,62 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
+
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:on_audio_query/on_audio_query.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeController extends GetxController {
-  final List<bool> _playBool = List.generate(5, (index) => false);
-  List<bool> get playBool => _playBool;
+  final audioQuery = OnAudioQuery();
+  final audioPlayer = AudioPlayer();
 
-  Audio find(List<Audio> source, String fromPath) {
-    return source.firstWhere((element) => element.path == fromPath);
+  RxInt playIndex = 0.obs;
+  RxBool isPlaying = false.obs;
+
+  var duration = ''.obs;
+  var position = ''.obs;
+
+  var value = 0.0.obs;
+  var max = 0.0.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    checkPermission();
   }
 
-  final List<Audio> musicPath = [
-    Audio("assets/music/ram.mp3",
-        metas: Metas(
-            id: 'Pop id name',
-            title: 'Pop title',
-            artist: 'jubin artis name',
-            album: 'album name',
-            image: const MetasImage.asset('assets/images/img.jpeg'))),
-    Audio("assets/music/krishna.mp3",
-        metas: Metas(
-            id: 'Pop',
-            title: 'Pop',
-            artist: 'Florent Champigny',
-            album: 'PopAlbum',
-            image: const MetasImage.asset('assets/images/img.jpeg'))),
-  ];
+  updatePosition() {
+    audioPlayer.durationStream.listen((d) {
+      duration.value = d.toString().split('.')[0];
+      max.value = d!.inSeconds.toDouble();
+    });
+    audioPlayer.positionStream.listen((p) {
+      position.value = p.toString().split('.')[0];
+      value.value = p.inSeconds.toDouble();
+    });
+  }
+
+  changeDurationToSeconds(seconds) {
+    var duration = Duration(seconds: seconds);
+    audioPlayer.seek(duration);
+  }
+
+  playSong(String? uri, index) {
+    playIndex.value = index;
+    try {
+      audioPlayer.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
+      audioPlayer.play();
+      isPlaying(true);
+      updatePosition();
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  checkPermission() async {
+    var perm = await Permission.storage.request();
+    if (perm.isGranted) {
+    } else {
+      checkPermission();
+    }
+  }
+
 }
