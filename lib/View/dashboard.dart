@@ -36,6 +36,7 @@ class _DashboardState extends State<Dashboard> {
               return textBlack20w600('No Song Found');
             }
             return ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return Column(
@@ -43,7 +44,7 @@ class _DashboardState extends State<Dashboard> {
                       15.height,
                       GestureDetector(
                           onTap: () {
-                            Get.to(()=> MusicDetails(data: snapshot.data!));
+                            Get.to(() => MusicDetails(data: snapshot.data!));
                             homeController.playSong(
                                 snapshot.data![index].uri, index);
                           },
