@@ -15,7 +15,7 @@ class MusicDetails extends StatelessWidget {
     HomeController homeController = Get.put(HomeController());
 
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title:  textBlack25w600('Music'),),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Obx(
@@ -68,24 +68,27 @@ class MusicDetails extends StatelessWidget {
                         },
                         icon: Icon(Icons.skip_previous,
                             size: 40.sp, color: Colors.grey[800])),
-                    CircleAvatar(
-                      radius: 35.sp,
-                      child: IconButton(
-                          onPressed: () {
-                            if (homeController.isPlaying.value) {
-                              homeController.audioPlayer.pause();
-                            } else {
-                              homeController.audioPlayer.play();
-                            }
-                            homeController.isPlaying.value =
-                                !homeController.isPlaying.value;
-                          },
-                          icon: Icon(
+                    GestureDetector(
+                      onTap: () {
+                        if (homeController.isPlaying.value) {
+                          homeController.audioPlayer.pause();
+                        } else {
+                          homeController.audioPlayer.play();
+                        }
+                        homeController.isPlaying.value =
+                            !homeController.isPlaying.value;
+                      },
+                      child: CircleAvatar(
+                        radius: 35.sp,
+                        child: Center(
+                          child: Icon(
                               homeController.isPlaying.value
                                   ? Icons.pause
                                   : Icons.play_arrow,
                               size: 54.sp,
-                              color: Colors.grey[800])),
+                              color: Colors.grey[800]),
+                        ),
+                      ),
                     ),
                     IconButton(
                         onPressed: () {
